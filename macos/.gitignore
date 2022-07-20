@@ -7,7 +7,7 @@
 **/xcuserdata/
 
 #files 
-linux/
-macos/
-windows/
-web/
+/linux
+/macos
+/windows
+/web
