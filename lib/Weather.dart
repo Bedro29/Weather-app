@@ -4,7 +4,7 @@ class Weather {
   late double low;
   late double high;
   late String description;
-  late String town;
+  late String city;
   late String country;
 
   Weather({
@@ -13,7 +13,7 @@ class Weather {
     required this.low,
     required this.high,
     required this.description,
-    required this.town,
+    required this.city,
     required this.country,
   });
 
@@ -28,7 +28,7 @@ class Weather {
         low: json['main']['temp_min'].toDouble(),
         high: json['main']['temp_max'].toDouble(),
         description: json['weather'][0]['description'],
-        town: json['name'],
+        city: json['name'],
         country: json['sys']['country']);
   }
 }
