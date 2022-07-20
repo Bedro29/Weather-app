@@ -61,9 +61,12 @@ Widget locationBox(String city) {
       } else {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: LoadingAnimationWidget.prograssiveDots(
-              color: Colors.black,
-              size: 30,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: LoadingAnimationWidget.prograssiveDots(
+                color: Colors.black,
+                size: 20,
+              ),
             ),
           );
           ;

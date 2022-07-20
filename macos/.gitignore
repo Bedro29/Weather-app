@@ -5,3 +5,9 @@
 # Xcode-related
 **/dgph
 **/xcuserdata/
+
+#files 
+linux/
+macos/
+windows/
+web/
