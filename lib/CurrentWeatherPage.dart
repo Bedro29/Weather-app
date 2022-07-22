@@ -1,16 +1,14 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:weather/Weather.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather/chooseLocation.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
-  const CurrentWeatherPage({Key? key}) : super(key: key);
+  late String cityName;
+  CurrentWeatherPage({Key? key, required this.cityName}) : super(key: key);
 
   @override
   State<CurrentWeatherPage> createState() => _CurrentWeatherPageState();
@@ -21,28 +19,43 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder(
-            future: getCurrentWeather('tlemcen'),
+            future: getCurrentWeather(widget.cityName),
             builder: (context, snapshot) {
-              Weather? _weather;
+              Weather? weather;
               if (snapshot != null) {
-                _weather = snapshot.data as Weather?;
-                if (_weather == null) {
-                  return errorIcon();
-                  //return errorIcon();
+                weather = snapshot.data as Weather?;
+                if (weather == null) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LoadingAnimationWidget.bouncingBall(
+                          color: Colors.black,
+                          size: 75,
+                        ),
+                        const Text(
+                          'Loading ... ',
+                          style: TextStyle(fontSize: 50),
+                        )
+                      ],
+                    ),
+                  );
                 } else {
-                  return WeatherBox(_weather);
+                  return WeatherBox(weather);
                 }
               } else {
-                return Loading();
+                return errorIcon();
               }
             }),
         floatingActionButton: FloatingActionButton(
           onPressed: (() {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: ((context) => ChooseLocation())));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const ChooseLocation())));
           }),
-          child: Icon(CupertinoIcons.location_fill),
           elevation: 0,
+          child: const Icon(CupertinoIcons.location_fill),
         ));
   }
 }
@@ -61,40 +74,40 @@ Future getCurrentWeather(String city) async {
   }
 }
 
-Widget WeatherBox(Weather _weather) {
+Widget WeatherBox(Weather weather) {
   return Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "${_weather.city}, ${_weather.country}",
-          style: TextStyle(
+          "${weather.city}, ${weather.country}",
+          style: const TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         Text(
-          "${(_weather.temp).round()} ºC",
-          style: TextStyle(fontSize: 25),
+          "${(weather.temp).round()} ºC",
+          style: const TextStyle(fontSize: 25),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text(
-          "min :${(_weather.low).round()} ºC  -  max :${(_weather.high).round()} ºC",
-          style: TextStyle(fontSize: 25),
+          "min :${(weather.low).round()} ºC  -  max :${(weather.high).round()} ºC",
+          style: const TextStyle(fontSize: 25),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text(
-          "${_weather.description}",
-          style: TextStyle(fontSize: 25),
+          weather.description,
+          style: const TextStyle(fontSize: 25),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
       ],
@@ -104,7 +117,8 @@ Widget WeatherBox(Weather _weather) {
 
 Widget errorIcon() {
   return Center(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.center, children: const [
     Icon(
       Icons.error,
       size: 40,
@@ -116,16 +130,4 @@ Widget errorIcon() {
       ),
     )
   ]));
-}
-
-Widget Loading() {
-  return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CircularProgressIndicator(),
-        Text('Loading ...'),
-      ],
-    ),
-  );
 }

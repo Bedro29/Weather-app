@@ -18,7 +18,7 @@ class Weather {
   });
 
   datafromWeather() {
-    return "temp = ${this.temp}";
+    return "temp = ${temp}";
   }
 
   factory Weather.fromJson(Map<String, dynamic> json) {

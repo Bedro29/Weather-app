@@ -1,13 +1,11 @@
-import 'dart:convert';
-import 'dart:js';
+//The screen where the user can search for a location among the locations list
 
+//TO DO : Fix the search bar filter
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:http/http.dart';
-import 'package:http/http.dart' as http;
-import 'CurrentWeatherPage.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:weather/Utilities/locationBox.dart';
+import 'package:outline_search_bar/outline_search_bar.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({Key? key}) : super(key: key);
@@ -25,63 +23,71 @@ List<String> cities = [
   'oslo',
 ];
 
+List<String> searchedcities = cities;
+
 class _ChooseLocationState extends State<ChooseLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Loactions'),
-        centerTitle: true,
+        backgroundColor: CupertinoColors.darkBackgroundGray,
+        elevation: 0,
+        toolbarHeight: 150,
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(7, 0, 7, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                'Weather',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: OutlineSearchBar(
+                  margin: EdgeInsets.only(top: 5),
+                  borderColor: CupertinoColors.darkBackgroundGray,
+                  borderWidth: 0,
+                  clearButtonColor: CupertinoColors.inactiveGray,
+                  hideSearchButton: true,
+                  padding: EdgeInsets.only(left: 12),
+                  cursorColor: Colors.white,
+                  icon: Icon(
+                    CupertinoIcons.search,
+                    color: CupertinoColors.inactiveGray,
+                  ),
+                  clearButtonIconColor: CupertinoColors.darkBackgroundGray,
+                  searchButtonIconColor: CupertinoColors.inactiveGray,
+                  backgroundColor: Color.fromARGB(255, 89, 89, 94),
+                  hintText: 'Rechercher une ville',
+                  hintStyle: TextStyle(
+                    color: CupertinoColors.inactiveGray,
+                  ),
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w200,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  searchButtonPosition: SearchButtonPosition.leading,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      body: ListView.builder(
-          itemCount: cities.length,
-          itemBuilder: (BuildContext context, int index) {
-            return locationBox(cities[index]);
-          }),
+      body: Container(
+        color: CupertinoColors.darkBackgroundGray,
+        child: ListView.builder(
+            itemCount: cities.length,
+            itemBuilder: (BuildContext context, int index) {
+              return locationBox(cities[index]);
+            }),
+      ),
     );
   }
-}
-
-Future getCurrentData(String city) async {
-  final response = await http.get(Uri.parse(
-      "https://api.openweathermap.org/data/2.5/weather?q=$city&units=metric&appid=f54be8866d65f0cc3b9473f77b310168"));
-
-  Map<String, dynamic> data = {};
-
-  data = jsonDecode(response.body);
-  return data;
-}
-
-Widget locationBox(String city) {
-  return FutureBuilder(
-    future: getCurrentData(city),
-    builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-      if (snapshot == null) {
-        return errorIcon();
-      } else {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: LoadingAnimationWidget.prograssiveDots(
-                color: Colors.black,
-                size: 20,
-              ),
-            ),
-          );
-          ;
-        } else {
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: Card(
-              child: Column(children: [
-                Text(city),
-                Text(snapshot.data['main']['temp'].toString()),
-              ]),
-            ),
-          );
-        }
-      }
-    },
-  );
 }
