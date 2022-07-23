@@ -4,7 +4,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weather/Utilities/locationBox.dart';
+import 'package:weather/widgets/locationBox.dart';
 import 'package:outline_search_bar/outline_search_bar.dart';
 
 class ChooseLocation extends StatefulWidget {
@@ -20,7 +20,7 @@ List<String> cities = [
   'Algiers',
   'Berlin',
   'Jakarta',
-  'oslo',
+  'Oslo',
 ];
 
 List<String> searchedcities = cities;
@@ -63,7 +63,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                   clearButtonIconColor: CupertinoColors.darkBackgroundGray,
                   searchButtonIconColor: CupertinoColors.inactiveGray,
                   backgroundColor: Color.fromARGB(255, 89, 89, 94),
-                  hintText: 'Rechercher une ville',
+                  hintText: 'Enter the city name',
                   hintStyle: TextStyle(
                     color: CupertinoColors.inactiveGray,
                   ),
