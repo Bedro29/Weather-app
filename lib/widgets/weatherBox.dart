@@ -2,42 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:weather/Weather.dart';
 
 Widget WeatherBox(Weather weather) {
-  return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "${weather.city}, ${weather.country}",
-          style: const TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+  return FittedBox(
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "${weather.city}, ${weather.country}",
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-        Text(
-          "${(weather.temp).round()} ºC",
-          style: const TextStyle(fontSize: 25),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          "min :${(weather.low).round()} ºC  -  max :${(weather.high).round()} ºC",
-          style: const TextStyle(fontSize: 25),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          weather.description,
-          style: const TextStyle(fontSize: 25),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
+          Text(
+            " ${(weather.temp).round()}º ",
+            style: const TextStyle(fontSize: 68),
+          ),
+          Text(
+            weather.description,
+            style: const TextStyle(fontSize: 16),
+          ),
+          Text(
+            "  min.${(weather.low).round()}º  max.${(weather.high).round()}º ",
+            style: const TextStyle(fontSize: 17),
+          ),
+        ],
+      ),
     ),
   );
 }

@@ -8,7 +8,7 @@ import 'package:weather/chooseLocation.dart';
 import 'package:weather/forecast.dart';
 import 'package:weather/widgets/dailyListView.dart';
 import 'package:weather/widgets/hoursListView.dart';
-import 'widgets/weatherBox.dart';
+import 'package:weather/widgets/weatherBox.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
   late String cityName;
@@ -21,6 +21,9 @@ class CurrentWeatherPage extends StatefulWidget {
 class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -33,38 +36,57 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                     if (snapshot != null) {
                       weather = snapshot.data as Weather?;
                       if (weather == null) {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              LoadingAnimationWidget.bouncingBall(
-                                color: Colors.black,
-                                size: 75,
-                              ),
-                              const Text(
-                                'Loading ... ',
-                                style: TextStyle(fontSize: 50),
-                              )
-                            ],
+                        return SizedBox(
+                          height: screenHeight,
+                          width: screenWidth,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                LoadingAnimationWidget.bouncingBall(
+                                  color: Colors.black,
+                                  size: 75,
+                                ),
+                                const Text(
+                                  'Loading ... ',
+                                  style: TextStyle(fontSize: 50),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       } else {
-                        return Column(
-                          children: [
-                            WeatherBox(weather),
-                            FutureBuilder(
-                              future: getLocation(widget.cityName),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshot2) {
-                                return Column(children: [
-                                  hourlyListView(snapshot2.data['lon'],
-                                      snapshot2.data['lat']),
-                                  dailyListView(snapshot2.data['lon'],
-                                      snapshot2.data['lat']),
-                                ]);
-                              },
-                            ),
-                          ],
+                        return SafeArea(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: SizedBox(
+                                  height: screenHeight * 0.4,
+                                  width: screenWidth,
+                                  child: WeatherBox(weather),
+                                ),
+                              ),
+                              FutureBuilder(
+                                future: getLocation(widget.cityName),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<dynamic> snapshot2) {
+                                  return Column(children: [
+                                    SizedBox(
+                                      height: screenHeight * 0.2,
+                                      child: hourlyListView(
+                                          snapshot2.data!['lon'],
+                                          snapshot2.data['lat']),
+                                    ),
+                                    dailyListView(snapshot2.data!['lon'],
+                                        snapshot2.data['lat']),
+                                  ]);
+                                },
+                              ),
+                            ],
+                          ),
                         );
                       }
                     } else {
