@@ -38,6 +38,7 @@ Widget dailyListView(double lon, lat) {
               horizontal: 8,
             ),
             child: Card(
+              color: const Color(0xFF14213D),
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
               child: Column(
@@ -53,7 +54,7 @@ Widget dailyListView(double lon, lat) {
                           padding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
                           child: Column(
                             children: [
-                              const Divider(),
+                              const Divider(color: Color(0xffe5e5e5)),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -61,19 +62,24 @@ Widget dailyListView(double lon, lat) {
                                   Text(
                                     dayName[index],
                                     style: const TextStyle(
-                                      fontSize: 23,
+                                      fontSize: 22,
+                                      color: Color(0xfffca311),
                                     ),
                                   ),
                                   FittedBox(
                                     child: SizedBox(
                                         height: 35,
                                         width: 35,
-                                        child: Image.asset('assets/$asset')),
+                                        child: Image.asset(
+                                          'assets/$asset',
+                                          color: const Color(0xfffca311),
+                                        )),
                                   ),
                                   Text(
-                                    '${days[index]['temp']['min'].round()}º --- ${days[index]['temp']['max'].round()}º ',
+                                    'min.${days[index]['temp']['min'].round()}º   max.${days[index]['temp']['max'].round()}º ',
                                     style: const TextStyle(
-                                      fontSize: 23,
+                                      fontSize: 19,
+                                      color: Color(0xfffca311),
                                     ),
                                   ),
                                 ],

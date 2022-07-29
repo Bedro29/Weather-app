@@ -30,7 +30,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: CupertinoColors.darkBackgroundGray,
+        backgroundColor: const Color(0xFFffffff),
         elevation: 0,
         toolbarHeight: 150,
         title: Padding(
@@ -42,30 +42,30 @@ class _ChooseLocationState extends State<ChooseLocation> {
               Text(
                 'Weather',
                 style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w800,
-                ),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xff000000)),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: OutlineSearchBar(
                   margin: EdgeInsets.only(top: 5),
-                  borderColor: CupertinoColors.darkBackgroundGray,
+                  borderColor: Color(0xFFe5e5e5),
                   borderWidth: 0,
-                  clearButtonColor: CupertinoColors.inactiveGray,
+                  clearButtonColor: Color(0xFFE5E5E5),
                   hideSearchButton: true,
                   padding: EdgeInsets.only(left: 12),
                   cursorColor: Colors.white,
                   icon: Icon(
                     CupertinoIcons.search,
-                    color: CupertinoColors.inactiveGray,
+                    color: Color(0xFFE5E5E5),
                   ),
                   clearButtonIconColor: CupertinoColors.darkBackgroundGray,
-                  searchButtonIconColor: CupertinoColors.inactiveGray,
-                  backgroundColor: Color.fromARGB(255, 89, 89, 94),
+                  searchButtonIconColor: Color(0xFFE5E5E5),
+                  backgroundColor: Color(0xFF14213D),
                   hintText: 'Enter the city name',
                   hintStyle: TextStyle(
-                    color: CupertinoColors.inactiveGray,
+                    color: Color(0xFFE5E5E5),
                   ),
                   textStyle: TextStyle(
                     color: Colors.white,
@@ -81,7 +81,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         ),
       ),
       body: Container(
-        color: CupertinoColors.darkBackgroundGray,
+        color: const Color(0xFFE5E5E5),
         child: ListView.builder(
             itemCount: cities.length,
             itemBuilder: (BuildContext context, int index) {

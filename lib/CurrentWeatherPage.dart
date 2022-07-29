@@ -25,6 +25,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+        backgroundColor: const Color(0xFFE5E5E5),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SafeArea(
@@ -43,9 +44,11 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                LoadingAnimationWidget.bouncingBall(
-                                  color: Colors.black,
-                                  size: 75,
+                                Center(
+                                  child: LoadingAnimationWidget.bouncingBall(
+                                    color: Colors.black,
+                                    size: 75,
+                                  ),
                                 ),
                                 const Text(
                                   'Loading ... ',
@@ -103,8 +106,12 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                 MaterialPageRoute(
                     builder: ((context) => const ChooseLocation())));
           }),
-          elevation: 0,
-          child: const Icon(CupertinoIcons.location_fill),
+          backgroundColor: const Color(0xffe5e5e5),
+          elevation: 3,
+          child: const Icon(
+            CupertinoIcons.location_fill,
+            color: Color(0xFF14213D),
+          ),
         ));
   }
 }

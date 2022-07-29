@@ -26,7 +26,7 @@ Widget locationBox(String city) {
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: LoadingAnimationWidget.prograssiveDots(
-                color: Colors.black,
+                color: const Color(0xFF14213D),
                 size: 20,
               ),
             ),
@@ -50,7 +50,7 @@ Widget locationBox(String city) {
                   child: Card(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30))),
-                    color: const Color.fromARGB(172, 124, 241, 237),
+                    color: const Color(0xFF14213D),
                     borderOnForeground: true,
                     elevation: 3,
                     child: Padding(
@@ -66,14 +66,12 @@ Widget locationBox(String city) {
                                     style: const TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.w900,
-                                        color:
-                                            Color.fromARGB(255, 23, 44, 66))),
+                                        color: Color(0xfffca311))),
                                 Text(snapshot.data['weather'][0]['description'],
                                     style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500,
-                                        color:
-                                            Color.fromARGB(255, 23, 44, 66))),
+                                        color: Color(0xfffca311))),
                                 const SizedBox(
                                   height: 1,
                                 )
@@ -88,15 +86,14 @@ Widget locationBox(String city) {
                                   style: const TextStyle(
                                       fontSize: 50,
                                       fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 23, 44, 66)),
+                                      color: Color(0xfffca311)),
                                 ),
                                 Text(
                                     'Min.${snapshot.data['main']['temp_min'].round()}º -  Max.${snapshot.data['main']['temp_max'].round()}º',
                                     style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500,
-                                        color:
-                                            Color.fromARGB(255, 23, 44, 66))),
+                                        color: Color(0xfffca311))),
                                 const SizedBox(
                                   height: 1,
                                 )

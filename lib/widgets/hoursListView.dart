@@ -23,6 +23,7 @@ Widget hourlyListView(double lon, lat) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Card(
+                color: const Color(0xFF14213D),
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Padding(
@@ -39,29 +40,38 @@ Widget hourlyListView(double lon, lat) {
                           const SizedBox(
                             width: 10,
                           ),
-                          Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  hoursList[index],
-                                  style: const TextStyle(
+                          FittedBox(
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    hoursList[index],
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 18),
-                                ),
-                                FittedBox(
-                                  child: SizedBox(
-                                      height: 35,
-                                      width: 35,
-                                      child: Image.asset('assets/$asset')),
-                                ),
-                                Text(
-                                  '${hours[index]['temp'].round()}º ',
-                                  style: const TextStyle(
-                                    fontSize: 22,
+                                      fontSize: 18,
+                                      color: Color(0xfffca311),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  FittedBox(
+                                    child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: Image.asset(
+                                          'assets/$asset',
+                                          color: const Color(0xfffca311),
+                                        )),
+                                  ),
+                                  Text(
+                                    '${hours[index]['temp'].round()}º ',
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      color: Color(0xfffca311),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(
