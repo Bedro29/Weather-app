@@ -60,7 +60,7 @@ Widget locationBox(String city) {
                           children: [
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(city,
                                     style: const TextStyle(

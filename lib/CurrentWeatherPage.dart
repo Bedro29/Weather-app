@@ -101,6 +101,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: (() {
+            cities = allcities;
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

@@ -5,7 +5,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/widgets/locationBox.dart';
-import 'package:outline_search_bar/outline_search_bar.dart';
 
 class ChooseLocation extends StatefulWidget {
   const ChooseLocation({Key? key}) : super(key: key);
@@ -21,9 +20,17 @@ List<String> cities = [
   'Berlin',
   'Jakarta',
   'Oslo',
+  'Washington',
+  'Mexico',
+  'Roma',
+  'Lisbonne',
+  'Tokyo',
+  'Seoul',
+  'Pekin',
+  'Montreal',
 ];
 
-List<String> searchedcities = cities;
+List<String> allcities = cities;
 
 class _ChooseLocationState extends State<ChooseLocation> {
   @override
@@ -38,8 +45,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'Weather',
                 style: TextStyle(
                     fontSize: 30,
@@ -47,33 +54,19 @@ class _ChooseLocationState extends State<ChooseLocation> {
                     color: Color(0xff000000)),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: OutlineSearchBar(
-                  margin: EdgeInsets.only(top: 5),
-                  borderColor: Color(0xFFe5e5e5),
-                  borderWidth: 0,
-                  clearButtonColor: Color(0xFFE5E5E5),
-                  hideSearchButton: true,
-                  padding: EdgeInsets.only(left: 12),
-                  cursorColor: Colors.white,
-                  icon: Icon(
-                    CupertinoIcons.search,
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: CupertinoSearchTextField(
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  onChanged: searchCity,
+                  backgroundColor: const Color(0xFF14213D),
+                  itemColor: const Color(0xFFE5E5E5),
+                  itemSize: 17,
+                  placeholder: 'Enter your city name',
+                  placeholderStyle: const TextStyle(
                     color: Color(0xFFE5E5E5),
-                  ),
-                  clearButtonIconColor: CupertinoColors.darkBackgroundGray,
-                  searchButtonIconColor: Color(0xFFE5E5E5),
-                  backgroundColor: Color(0xFF14213D),
-                  hintText: 'Enter the city name',
-                  hintStyle: TextStyle(
-                    color: Color(0xFFE5E5E5),
-                  ),
-                  textStyle: TextStyle(
-                    color: Colors.white,
                     fontSize: 15,
-                    fontWeight: FontWeight.w200,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                  searchButtonPosition: SearchButtonPosition.leading,
+                  prefixInsets: const EdgeInsets.only(left: 10),
                 ),
               ),
             ],
@@ -89,5 +82,17 @@ class _ChooseLocationState extends State<ChooseLocation> {
             }),
       ),
     );
+  }
+
+  void searchCity(String query) {
+    final suggestions = allcities.where((city) {
+      final cityName = city.toLowerCase();
+      final input = query.toLowerCase();
+      return cityName.contains(input);
+    }).toList();
+
+    setState(() {
+      cities = suggestions;
+    });
   }
 }
